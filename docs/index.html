@@ -2,9 +2,9 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Untitled Document</title>
+<title>AsFunAsFun - Vinyl &amp; CD collection</title>
 <style>
-    html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
     margin: 0;
     padding: 0;
     border: 0;
@@ -34,15 +34,17 @@ table {
     border-spacing: 0;
 }
 body {
+    height: 100%;
     font-family: sans-serif;
-    padding-bottom: 100px;
+    padding-bottom: 250px;
 }
-    h1{
-        font-size: x-large;
-        padding-bottom:10px;
-        padding-top:10px;
-        font-weight: bold;;
-    }
+h1 {
+    font-size: x-large;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-weight: bold;
+    ;
+}
 #footer {
     position: fixed;
     left: 0;
@@ -51,7 +53,6 @@ body {
     width: 100%;
     color: #fff;
     background-color: #5b5b5b;
-    padding: 0.01em 16px;
     font-family: Verdana, sans-serif;
     font-size: 15px;
     line-height: 1.5;
@@ -81,30 +82,57 @@ input:focus, textarea:focus {
     /* Change this value to customize the content area*/
     margin: 0 auto;
 }
-    a{
-        color:#fff;
+a {
+    color: #fff;
+}
+a:visited {
+    color: #ddd;
+}
+span, h1 {
+    color: #fff;
+    background: #000;
+    padding: 20px;
+}
+#footer {
+    height: 250px;
+}
+#ribbon-1, #ribbon-2 {
+    position: fixed;
+    top: 0;
+    
+    bottom: 0;
+    background-repeat: repeat-y;
+    width: 13px;
+    height: 100%;
+}
+    #ribbon-1{
+    left:0;
+    background-image: url("../AFAF (1).png");
+        
+    } #ribbon-2{
+        right:0;
+    background-image: url("../AFAF (2).png");
+        
     }
-    a:visited{
-        color:#ddd;
-    }
-
+    
+    
 </style>
 </head>
 
 <body id = "body">
-<div id="footer">
+<div id="ribbon-1"></div>
+<div id="ribbon-2"></div>
+<div id="footer"> <span style="float:right"> <a href="https://linktr.ee/asfunas?utm_source=linktree_profile_share&ltsid=179e5f87-fc6e-44e1-ba54-87bc885b6964">AsFunAsFun on LinkTr.ee</a> </span>
+  <h1>AsFunAsFun - Vinyl &amp; CD collection</h1>
   <div class="container">
     <input id="search" placeholder="Search for artist or album"/>
     <button id="search-button">Search</button>
     <button id="reset-button">Reset</button>
-      <div id="meta">
-    <a id="cd-link" href="#cd-list">Cds</a><br>
-    <a id="vinyl-link" href="#vinyl-list">Vinyls</a>
-    </div>
+    <div id="meta"> <a id="cd-link" href="#cd-list">Cds</a><br>
+      <a id="vinyl-link" href="#vinyl-list">Vinyls</a> </div>
   </div>
 </div>
 <div class="container">
-    
   <div id="vinyl-list">Vinyls</div>
   <div id="cd-list">CDs</div>
 </div>
