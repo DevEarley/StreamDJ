@@ -1,0 +1,226 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<style>
+    html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+body {
+    font-family: sans-serif;
+    padding-bottom: 100px;
+}
+    h1{
+        font-size: x-large;
+        padding-bottom:10px;
+        padding-top:10px;
+        font-weight: bold;;
+    }
+#footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+    color: #fff;
+    background-color: #5b5b5b;
+    padding: 0.01em 16px;
+    font-family: Verdana, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+}
+/* http://meyerweb.com/eric/tools/css/reset/ 
+        v2.0 | 20110126
+        License: none (public domain)
+        */
+input, textarea {
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    transition: all 0.30s ease-in-out;
+    padding: 3px 0 3px 3px;
+    margin: 5px 1px 3px 0;
+    border: 1px solid #5b5b5b;
+    width: 300px;
+}
+input:focus, textarea:focus {
+    box-shadow: 0 0 5px #5b5b5b;
+    outline: none;
+    padding: 3px 0 3px 3px;
+    margin: 5px 1px 3px 0;
+    border: 1px solid #5b5b5b;
+}
+.container {
+    width: 800px;
+    /* Change this value to customize the content area*/
+    margin: 0 auto;
+}
+    a{
+        color:#fff;
+    }
+    a:visited{
+        color:#ddd;
+    }
+
+</style>
+</head>
+
+<body id = "body">
+<div id="footer">
+  <div class="container">
+    <input id="search" placeholder="Search for artist or album"/>
+    <button id="search-button">Search</button>
+    <button id="reset-button">Reset</button>
+      <div id="meta">
+    <a id="cd-link" href="#cd-list">Cds</a><br>
+    <a id="vinyl-link" href="#vinyl-list">Vinyls</a>
+    </div>
+  </div>
+</div>
+<div class="container">
+    
+  <div id="vinyl-list">Vinyls</div>
+  <div id="cd-list">CDs</div>
+</div>
+<script>
+    var vinylsDOM = document.getElementById("vinyl-list");
+var cdsDOM = document.getElementById("cd-list");
+var vinylLink = document.getElementById("vinyl-link");
+var cdsLink = document.getElementById("cd-link");
+var searchInput = document.getElementById("search");
+var searchButton = document.getElementById("search-button");
+var resetButton = document.getElementById("reset-button");
+searchInput.onkeyup = clickedSearch;
+searchButton.onclick = clickedSearch;
+resetButton.onclick = resetSearch;
+vinylsDOM.innerHTML = "<h1>Vinyls</h1>";
+cdsDOM.innerHTML = "<h1>CDs</h1>";
+var filteredVinyls = [];
+var filteredCDs = [];
+var metaData = {number_of_cds:0,number_of_vinyls:0};
+var vinyls = [];
+var cds= [];
+console.log("main.js");
+
+function updateDOM(){
+    cdsLink.innerHTML = "CDs: "+metaData.number_of_cds ;
+    vinylLink.innerHTML = "Vinyls: "+metaData.number_of_vinyls ;
+    console.log("updateDOM");
+    vinylsDOM.innerHTML = "<h1>Vinyls</h1>";
+    if(filteredVinyls.length == 0){
+          vinylsDOM.innerHTML += "Couldn't find any Vinyls like that."
+    }
+    else{
+         vinylsDOM.innerHTML += filteredVinyls.map((x)=>{return x+"</br>"}).join("");
+    }
+    cdsDOM.innerHTML = "<h1>CDs</h1>";
+    if(filteredCDs.length == 0){
+          cdsDOM.innerHTML += "Couldn't find any CDs like that."
+    }
+    else{
+         cdsDOM.innerHTML += filteredCDs.map((x)=>{return x+"</br>"}).join("");
+    }
+   
+}
+
+function OnJSONLoaded(data){
+    console.log("OnJSONLoaded");
+    console.log(data);
+	metaData = data.meta;
+	vinyls = data.vinyls;
+	cds = data.cds;
+    filteredVinyls =vinyls;
+    filteredCDs = cds;
+    updateDOM();
+}
+
+function clickedSearch(){
+    console.log("clickedSearch");
+    var searchValue = searchInput.value.toLowerCase();
+    if(searchValue == "")
+        {
+            resetSearch();
+            return;
+        }
+	var searchedVinyls = vinyls.filter((c)=>{return c.toLowerCase().includes(searchValue)});
+	var searchedCds = cds.filter((c)=>{return c.toLowerCase().includes(searchValue)});
+    filteredVinyls = searchedVinyls;
+    filteredCDs = searchedCds;
+    updateDOM();
+}
+
+
+function resetSearch(){
+    searchInput.value = "";
+    console.log("resetSearch");
+    filteredVinyls = vinyls;
+    filteredCDs = cds;
+    updateDOM();
+}
+
+ function getJSON(url, callback) {
+    console.log("getJSON");
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.responseType = 'json';
+    xhr.onload = function() {
+      var status = xhr.status;
+      if (status === 200) {
+        callback(null, xhr.response);
+      } else {
+        callback(status, xhr.response);
+      }
+    };
+    xhr.send();
+};
+
+function JSONCallback(err, data) {
+    console.log("JSONCallback");
+
+         console.log(data);
+  if (err !== null) {      
+      console.log(err);
+  } else {
+  	OnJSONLoaded(data);
+  }
+}
+
+function loadJSONFromGitHub(){
+    console.log("loadJSONFromGitHub");
+	var URL = 'https://raw.githubusercontent.com/DevEarley/StreamDJ/master/currently_available.json';
+	var json = getJSON( URL, JSONCallback);
+	return json;
+}
+
+(function() {
+	loadJSONFromGitHub();
+})()
+    </script>
+</body>
+</html>
