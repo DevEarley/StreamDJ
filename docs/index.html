@@ -129,6 +129,11 @@ span, h1 {
         margin-top: 20px;
         
     }
+    .new{
+        font-weight: bold;
+        color:darkred;
+
+    }
     
 </style>
 </head>
@@ -179,7 +184,7 @@ function updateDOM(){
           vinylsDOM.innerHTML += "Couldn't find any Vinyls like that."
     }
     else{
-         vinylsDOM.innerHTML += filteredVinyls.map((x)=>{return x+"</br>"}).join("");
+         vinylsDOM.innerHTML += filteredVinyls.map((x)=>{return x.replace('(NEW!)','<span class="new">(New!)</span>')+"</br>"}).join("");
     }
     cdsDOM.innerHTML = "<h1>CDs</h1>";
     if(filteredCDs.length == 0){
