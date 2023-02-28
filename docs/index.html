@@ -95,7 +95,12 @@ a {
 a:visited {
     color: #aaa;
 }
-span, h1 {
+h1 {
+    color: #fff;
+    background: #000;
+    padding: 20px;
+}
+    .linktree {
     color: #fff;
     background: #000;
     padding: 20px;
@@ -131,7 +136,7 @@ span, h1 {
     }
     .new{
         font-weight: bold;
-        color:darkred;
+        color:red;
 
     }
     
@@ -141,7 +146,7 @@ span, h1 {
 <body id = "body">
 <div id="ribbon-1"></div>
 <div id="ribbon-2"></div>
-<div id="footer"> <span style="float:right"> <a href="https://linktr.ee/asfunas?utm_source=linktree_profile_share&ltsid=179e5f87-fc6e-44e1-ba54-87bc885b6964">AsFunAsFun on LinkTr.ee</a> </span>
+<div id="footer"> <span class="linktree" style="float:right"> <a href="https://linktr.ee/asfunas?utm_source=linktree_profile_share&ltsid=179e5f87-fc6e-44e1-ba54-87bc885b6964">AsFunAsFun on LinkTr.ee</a> </span>
   <h1>AsFunAsFun - Vinyl &amp; CD collection</h1>
   <div class="container">
     <input id="search" placeholder="Search for artist or album"/>
@@ -191,7 +196,7 @@ function updateDOM(){
           cdsDOM.innerHTML += "Couldn't find any CDs like that."
     }
     else{
-         cdsDOM.innerHTML += filteredCDs.map((x)=>{return x+"</br>"}).join("");
+         cdsDOM.innerHTML += filteredCDs.map((x)=>{return x.replace('(NEW!)','<span class="new">(New!)</span>')+"</br>"}).join("");
     }
    
 }
