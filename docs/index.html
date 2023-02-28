@@ -309,8 +309,8 @@
         console.log("main.js");
 
         function updateDOM() {
-            cdsLink.innerHTML = "CDs: " + metaData.number_of_cds;
-            vinylLink.innerHTML = "Vinyls: " + metaData.number_of_vinyls;
+            cdsLink.innerHTML = "CDs: " + cds.length;
+            vinylLink.innerHTML = "Vinyls: " + vinyls.length;
             console.log("updateDOM");
             vinylsDOM.innerHTML = "<h1>Vinyls</h1>";
             if (filteredVinyls.length == 0) {
